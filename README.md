@@ -1,4 +1,4 @@
-## Rabbus 🚌 ✨
+## Rabbus 🚌 ✨ (FORK)
 
 * A tiny wrapper over [amqp](https://github.com/streadway/amqp) exchanges and queues.
 * In memory retries with exponential backoff for sending messages.
@@ -8,7 +8,7 @@
 
 ## Installation
 ```bash
-go get -u github.com/rafaeljesus/rabbus
+go get -u github.com/bsr3000/rabbus
 ```
 
 ## Usage
