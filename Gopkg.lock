@@ -2,26 +2,57 @@
 
 
 [[projects]]
+  digest = "1:1521cd4f52aa614642b44662c6efb90a5ae3097f9cd449e0d8848fc22be6f538"
+  name = "github.com/bsr3000/rabbus"
+  packages = ["internal/amqp"]
+  pruneopts = ""
+  revision = "8d35363110eabda761c28ec7bc4bfe2b38ac490a"
+  version = "v2.0"
+
+[[projects]]
+  digest = "1:bce8004d981cc18e05d30bee5f119f8e708f6191df026a7361de90de42dbd92c"
+  name = "github.com/rafaeljesus/rabbus"
+  packages = [
+    ".",
+    "internal/amqp",
+  ]
+  pruneopts = ""
+  revision = "086d921c442ae5210224920df8517fb862ef56d4"
+  version = "v2.3.0"
+
+[[projects]]
   branch = "master"
+  digest = "1:382b5b27eb4b0066e62ebba85b71348f02bd3cb84ad38b60dc8641cebada652c"
   name = "github.com/rafaeljesus/retry-go"
   packages = ["."]
+  pruneopts = ""
   revision = "3bbade4f4fab0cf8e41928da5869760c17a037db"
 
 [[projects]]
+  digest = "1:6da8e0cefe2f311a7ed7ba4c8d33494815801c911a2a0fa8387e7cdc29ec8166"
   name = "github.com/sony/gobreaker"
   packages = ["."]
+  pruneopts = ""
   revision = "e9556a45379ef1da12e54847edb2fb3d7d566f36"
   version = "0.3.0"
 
 [[projects]]
   branch = "master"
+  digest = "1:4c6e252333978a28daf21528c10e51020393dad494adef97e4c9db78c9e8350e"
   name = "github.com/streadway/amqp"
   packages = ["."]
+  pruneopts = ""
   revision = "ff791c2d22d3f1588b4e2cc71a9fba5e1da90654"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5cc4ba9bb3fe8b480c05e9186b2d02a9846d92a8cabd8d2ee642fdb6969ad173"
+  input-imports = [
+    "github.com/bsr3000/rabbus/internal/amqp",
+    "github.com/rafaeljesus/rabbus",
+    "github.com/rafaeljesus/retry-go",
+    "github.com/sony/gobreaker",
+    "github.com/streadway/amqp",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

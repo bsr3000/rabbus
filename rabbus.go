@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	amqpwrap "github.com/bsr3000/rabbus/internal/amqp"
+	amqpwrap "github.com/bsr3000/rabbus"
 	"github.com/rafaeljesus/retry-go"
 	"github.com/sony/gobreaker"
 	"github.com/streadway/amqp"
@@ -26,7 +26,7 @@ const (
 	// ExchangeFanout indicates the exchange is of fanout type.
 	ExchangeFanout = "fanout"
 	// ExchangeTopic indicates the exchange is of topic type.
-	ExchangeTopic = "topic"
+	ExchangeTopicŻ = "topic"
 
 	contentEncoding = "UTF-8"
 )
@@ -168,7 +168,7 @@ func New(dsn string, options ...Option) (*Rabbus, error) {
 	}
 
 	if r.Amqp == nil {
-		amqpWrapper, err := amqpwrap.New(dsn, r.config.passiveex)
+		amqpWrapper, err := amqpwrap.New(dsn, amqpwrap.PassiveExchange(r.config.passiveex))
 		if err != nil {
 			return nil, err
 		}
@@ -361,8 +361,8 @@ func Sleep(sleep time.Duration) Option {
 	}
 }
 
-// BreakerInterval is the cyclic period of the closed state for CircuitBreaker to clear the internal counts,
-// If Interval is 0, CircuitBreaker doesn't clear the internal counts during the closed state.
+// BreakerInterval is the cyclic period of the closed state for CircuitBreaker to clear the helpers counts,
+// If Interval is 0, CircuitBreaker doesn't clear the helpers counts during the closed state.
 func BreakerInterval(interval time.Duration) Option {
 	return func(r *Rabbus) error {
 		r.config.breaker.interval = interval
@@ -420,7 +420,7 @@ func (r *Rabbus) wrapMessage(c ListenConfig, sourceChan <-chan amqp.Delivery, ta
 func (r *Rabbus) handleAmqpClose(err error) {
 	for {
 		time.Sleep(time.Second)
-		aw, err := amqpwrap.New(r.config.dsn, r.config.passiveex)
+		aw, err := amqpwrap.New(r.config.dsn, amqpwrap.PassiveExchange(r.config.passiveex))
 		if err != nil {
 			continue
 		}
@@ -439,7 +439,7 @@ func (r *Rabbus) listenReconn(c ListenConfig, messages chan ConsumerMessage) {
 	for range r.reconn {
 		msgs, err := r.CreateConsumer(c.Exchange, c.Key, c.Kind, c.Queue, r.config.durable)
 		if err != nil {
-			r.Close()
+			_ = r.Close()
 			continue
 		}
 
