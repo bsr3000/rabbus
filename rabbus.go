@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	amqpwrap "rabbus/helpers/amqp"
 	"github.com/rafaeljesus/retry-go"
 	"github.com/sony/gobreaker"
 	"github.com/streadway/amqp"
+	amqpwrap "rabbus/internals/amqp"
 )
 
 const (
@@ -168,7 +168,7 @@ func New(dsn string, options ...Option) (*Rabbus, error) {
 	}
 
 	if r.Amqp == nil {
-		amqpWrapper, err := amqpwrap.New(dsn, amqpwrap.PassiveExchange(r.config.passiveex))
+		amqpWrapper, err := amqpwrap.New(dsn, r.config.passiveex)
 		if err != nil {
 			return nil, err
 		}
@@ -361,8 +361,8 @@ func Sleep(sleep time.Duration) Option {
 	}
 }
 
-// BreakerInterval is the cyclic period of the closed state for CircuitBreaker to clear the helpers counts,
-// If Interval is 0, CircuitBreaker doesn't clear the helpers counts during the closed state.
+// BreakerInterval is the cyclic period of the closed state for CircuitBreaker to clear the internals counts,
+// If Interval is 0, CircuitBreaker doesn't clear the internals counts during the closed state.
 func BreakerInterval(interval time.Duration) Option {
 	return func(r *Rabbus) error {
 		r.config.breaker.interval = interval
@@ -420,7 +420,7 @@ func (r *Rabbus) wrapMessage(c ListenConfig, sourceChan <-chan amqp.Delivery, ta
 func (r *Rabbus) handleAmqpClose(err error) {
 	for {
 		time.Sleep(time.Second)
-		aw, err := amqpwrap.New(r.config.dsn, amqpwrap.PassiveExchange(r.config.passiveex))
+		aw, err := amqpwrap.New(r.config.dsn, r.config.passiveex)
 		if err != nil {
 			continue
 		}
