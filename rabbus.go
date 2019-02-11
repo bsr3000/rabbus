@@ -26,7 +26,7 @@ const (
 	// ExchangeFanout indicates the exchange is of fanout type.
 	ExchangeFanout = "fanout"
 	// ExchangeTopic indicates the exchange is of topic type.
-	ExchangeTopicŻ = "topic"
+	ExchangeTopic = "topic"
 
 	contentEncoding = "UTF-8"
 )
