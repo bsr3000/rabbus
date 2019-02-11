@@ -22,11 +22,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:382b5b27eb4b0066e62ebba85b71348f02bd3cb84ad38b60dc8641cebada652c"
+  digest = "1:7746754638136181a6474cf893f21eabc2b20322ea13ba77a5d7fd8f5ee6329f"
   name = "github.com/rafaeljesus/retry-go"
   packages = ["."]
   pruneopts = ""
-  revision = "3bbade4f4fab0cf8e41928da5869760c17a037db"
+  revision = "5981a380a87925ee03a78a7ff13574fabc804837"
 
 [[projects]]
   digest = "1:6da8e0cefe2f311a7ed7ba4c8d33494815801c911a2a0fa8387e7cdc29ec8166"
@@ -38,11 +38,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4c6e252333978a28daf21528c10e51020393dad494adef97e4c9db78c9e8350e"
+  digest = "1:4658807d4ade3e68bce44a643d3aedc81cd9ec8609062866b07fe7a65758a406"
   name = "github.com/streadway/amqp"
   packages = ["."]
   pruneopts = ""
-  revision = "ff791c2d22d3f1588b4e2cc71a9fba5e1da90654"
+  revision = "a314942b2fd9dde7a3f70ba3f1062848ce6eb392"
 
 [solve-meta]
   analyzer-name = "dep"
