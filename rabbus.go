@@ -6,7 +6,6 @@ import (
 	"sync"
 	"time"
 
-	amqpwrap "github.com/rafaeljesus/rabbus"
 	"github.com/rafaeljesus/retry-go"
 	"github.com/sony/gobreaker"
 	"github.com/streadway/amqp"
@@ -168,7 +167,7 @@ func New(dsn string, options ...Option) (*Rabbus, error) {
 	}
 
 	if r.Amqp == nil {
-		amqpWrapper, err := amqpwrap.New(dsn, amqpwrap.PassiveExchange(r.config.passiveex))
+		amqpWrapper, err := New(dsn, PassiveExchange(r.config.passiveex))
 		if err != nil {
 			return nil, err
 		}
@@ -420,7 +419,7 @@ func (r *Rabbus) wrapMessage(c ListenConfig, sourceChan <-chan amqp.Delivery, ta
 func (r *Rabbus) handleAmqpClose(err error) {
 	for {
 		time.Sleep(time.Second)
-		aw, err := amqpwrap.New(r.config.dsn, amqpwrap.PassiveExchange(r.config.passiveex))
+		aw, err := New(r.config.dsn, PassiveExchange(r.config.passiveex))
 		if err != nil {
 			continue
 		}
